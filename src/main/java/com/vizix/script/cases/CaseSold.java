@@ -27,6 +27,9 @@ public class CaseSold {
                 }
                 int sec = (int) time;
                 random(sec*60);
+
+                //executeComand();
+
             }
             System.out.println("\n--End Group--");
             counter++;
@@ -46,5 +49,23 @@ public class CaseSold {
                 e.printStackTrace();
             }
         }
+    }
+
+    void executeComand(){
+        System.out.println("Execute command----");
+        StringBuffer output = new StringBuffer();
+        Process p;
+        try {
+            p = Runtime.getRuntime().exec("pwd");
+            p.waitFor();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            String line = null;
+            while((line = reader.readLine())!=null) {
+                output.append(line+"\n");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println("Execute command----END");
     }
 }

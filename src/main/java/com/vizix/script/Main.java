@@ -9,7 +9,7 @@ public class Main {
     public static double time;
     public static void main(String[] args){
         //CHANGE VALUES
-        Step = "stolen";
+        Step = "sold";
         things = 11;
         time = 1;
 
