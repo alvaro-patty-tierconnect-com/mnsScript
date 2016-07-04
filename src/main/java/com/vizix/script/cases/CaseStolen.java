@@ -1,6 +1,8 @@
 package com.vizix.script.cases;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.Random;
 
@@ -12,21 +14,23 @@ public class CaseStolen {
     public void Build(int count,double time) {
         fileStructure fls = new fileStructure();
         System.out.println("\n--Start Group "+counter+"--");
-        String[] zones = {"0.0,1.0","0.1,0.5"};//CHANGE VALUES
+        String[] zones = {"9.8,126.2","21.8,125.9"};//CHANGE VALUES
         for(int j = 0; ;j++) {
             for(int i = 0; i < 2; i++) {
                 System.out.println("\nBuilding aledata...");
                 System.out.println("Zone: "+zones[i]);
-                System.out.println(fls.aledata("mnsSold",count,counter,zones[i]));
+                //System.out.println(fls.aledata("mnsSold",count,counter,zones[i]));
 
                 PrintWriter w = null;
                 try {
-                    w = new PrintWriter("resource/aledata.txt", "UTF-8");
+                    w = new PrintWriter("aledataMnS_Stolen.txt", "UTF-8");
                     w.println(fls.aledata("mnsStolen",count,counter,zones[i]));
                     w.close();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+
+                executeComand();
 
                 int sec = (int) time;
                 random(sec*60);
@@ -49,5 +53,29 @@ public class CaseStolen {
                 e.printStackTrace();
             }
         }
+    }
+
+    void executeComand(){
+        System.out.println("Executing aledata.sh----");
+
+        Process p;
+        try {
+            p = Runtime.getRuntime().exec("sh aledataStolen.sh");
+            p.waitFor();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            BufferedReader readerError = new BufferedReader(new InputStreamReader(p.getErrorStream()));
+            String line = null;
+            while((line = reader.readLine())!=null) {
+                System.out.println(line);
+            }
+            line = null;
+            while((line = readerError.readLine())!=null) {
+                System.out.println(line);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("Execute aledata.sh----");
     }
 }

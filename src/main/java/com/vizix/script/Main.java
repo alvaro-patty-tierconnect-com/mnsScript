@@ -10,7 +10,7 @@ public class Main {
     public static void main(String[] args){
         //CHANGE VALUES
         Step = "sold";
-        things = 11;
+        things = 30;
         time = 1;
 
         Blink b = new Blink();

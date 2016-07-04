@@ -25,6 +25,7 @@ task startScript() {
             classpath = sourceSets.main.runtimeClasspath
 
             main = "com.vizix.script.Main"
+
         }
     }
 }

@@ -10,25 +10,29 @@ public class CaseSold {
     int counter = 1;
     public void Build(int count,double time) {
         fileStructure fls = new fileStructure();
-        System.out.println("\n--Start Group "+counter+"--");
-        String[] zones = {"0.0,1.0","0.1,0.5","1.5,0.8"};//CHANGE VALUES
+        String[] zones = {"6.1,125.9","32.2,125.2","21.4,126.1"};//CHANGE VALUES
         for(int j = 0; ;j++) {
+            System.out.println("\n--Start Group "+counter+"--");
             for(int i = 0; i < 3; i++) {
                 System.out.println("\nBuilding aledata...");
                 System.out.println("Zone: "+zones[i]);
                 //System.out.println(fls.aledata("mnsSold",count,counter,zones[i]));
+
                 PrintWriter w = null;
                 try {
-                    w = new PrintWriter("resource/aledata.txt", "UTF-8");
+                    w = new PrintWriter("aledataMnS_Sold.txt", "UTF-8");
                     w.println(fls.aledata("mnsSold",count,counter,zones[i]));
                     w.close();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+
+                executeComand();
+
                 int sec = (int) time;
                 random(sec*60);
 
-                //executeComand();
+
 
             }
             System.out.println("\n--End Group--");
@@ -52,20 +56,26 @@ public class CaseSold {
     }
 
     void executeComand(){
-        System.out.println("Execute command----");
-        StringBuffer output = new StringBuffer();
+        System.out.println("Executing aledata.sh----");
+
         Process p;
         try {
-            p = Runtime.getRuntime().exec("pwd");
+            p = Runtime.getRuntime().exec("sh aledataSold.sh");
             p.waitFor();
             BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            BufferedReader readerError = new BufferedReader(new InputStreamReader(p.getErrorStream()));
             String line = null;
             while((line = reader.readLine())!=null) {
-                output.append(line+"\n");
+                System.out.println(line);
+            }
+            line = null;
+            while((line = readerError.readLine())!=null) {
+                System.out.println(line);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("Execute command----END");
+
+        System.out.println("Execute aledata.sh----");
     }
 }

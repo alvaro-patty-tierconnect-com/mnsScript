@@ -6,7 +6,7 @@ package com.vizix.script.cases;
 public class fileStructure {
     public String aledata(String name,int count,int counter,String zone) {
         String ini = "EPOCH,NOW\nDELT,REL\n";
-        String map = "CS,-118.443969,34.048092,0.0,20.0,ft\n";//CHANGE VALUES
+        String map = "CS,-1.472006,52.918259,0.0,0.0,meters\n";//CHANGE VALUES
         String blink = "\n";
 
         String loc = "LOC,00:00:00,";
